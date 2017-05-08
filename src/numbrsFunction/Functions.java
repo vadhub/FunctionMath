@@ -48,7 +48,7 @@ public class Functions {
 			// 4
 
 			g.setColor(Color.RED);
-			g.drawLine(0, h / 2 - w / b /8, w, h / 2 + w / b /8);
+			g.drawLine(0, h / 2 - w / b /2, w, h / 2 - w / b /2);
 
 		}
 		if (k == 0 && b > 0) {

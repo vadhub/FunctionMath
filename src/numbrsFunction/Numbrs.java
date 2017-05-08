@@ -61,7 +61,8 @@ public class Numbrs extends JPanel {
 	}
 
 	public void frame() {
-				
+		
+		//load image
 		qwerty.addActionListener((e) -> {
 			ImageIcon im = new ImageIcon(Numbrs.class.getResource("/grafik.jpg"));
 			JOptionPane.showConfirmDialog(null, im, "r1",JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION);
