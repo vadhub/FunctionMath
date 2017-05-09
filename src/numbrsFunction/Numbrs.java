@@ -6,23 +6,22 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class Numbrs extends JPanel {
-	JFrame frame = new JFrame();
 	Functions fuc = new Functions();
-
+	DataBase db = new DataBase();
+	
+	JFrame frame = new JFrame();
 	JPanel panel1 = new JPanel();
 	JPanel panel2 = new JPanel();
-	JButton rezult = new JButton("Output");
-	JButton qwerty = new JButton("?");
+	JButton rezult = new JButton("Output");	
+	JButton qwerty = new JButton("s");	
 	JLabel kl = new JLabel("k:");
 	JLabel bl = new JLabel("b:");
 
@@ -37,23 +36,23 @@ public class Numbrs extends JPanel {
 	protected void paintComponent(Graphics g2) {
 		super.paintComponent(g2);
 		Graphics2D g4;
-
+		System.out.println("p");
 		g4 = (Graphics2D) g2;
 
 		g4.setStroke(new BasicStroke(2));
 
 		w = getWidth();
 		h = getHeight();
-
-		rezult.setBackground(Color.ORANGE);
 		
+		//load image		
+
+		rezult.setBackground(Color.ORANGE);		
 		//change variables k and b 		
 		rezult.addActionListener((e) -> {
 			k = Integer.valueOf(pryamK.getText());
 			b = Integer.valueOf(pryamB.getText());
 
 			frame.repaint();
-
 		});
 		g4.setColor(Color.RED);
 		fuc.line(k, b, g4, w, h);
@@ -61,13 +60,17 @@ public class Numbrs extends JPanel {
 	}
 
 	public void frame() {
-		
-		//load image
 		qwerty.addActionListener((e) -> {
-			ImageIcon im = new ImageIcon(Numbrs.class.getResource("/grafik.jpg"));
-			JOptionPane.showConfirmDialog(null, im, "r1",JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION);
-
+//			ImageIcon im = new ImageIcon(Numbrs.class.getResource("/grafik.jpg"));
+//			JOptionPane.showConfirmDialog(null, im, "r1",JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION);
+			try {
+				db.ConnectToDataBass(k, b);
+			} catch (Exception e1) {				
+				e1.printStackTrace();
+			}
+			
 		});
+			
 		qwerty.setBackground(Color.ORANGE);
 
 		panel1.add(qwerty);

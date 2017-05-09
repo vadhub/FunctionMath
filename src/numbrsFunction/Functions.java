@@ -34,14 +34,14 @@ public class Functions {
 			// 2
 
 			g.setColor(Color.RED);
-			g.drawLine(0, h / 2 + w / -k, w, h / 2 - w / -k);
+			g.drawLine(0, h / 2 + w / k, w, h / 2 - w / k);
 
 		}
 		if (k < 0 && (b == 0)) {
 			// 3
 
 			g.setColor(Color.RED);
-			g.drawLine(0, h / 2 - w / k, w, h / 2 + w / k);
+			g.drawLine(0, h / 2 + w / k / 2, w, h / 2 + w / k / -2);
 
 		}
 		if (k == 0 && b < 0) {
@@ -62,25 +62,25 @@ public class Functions {
 		if (k > 0 && b > 0) {
 			// 6
 			g.setColor(Color.RED);
-			g.drawLine(0, h / b / 2 + w / k, w, h / b / 2 - w / k);
+			g.drawLine(0, h / b / 3 + w / k, w, h / b / 3 - w / k);
 
 		}
 		if (k < 0 && b > 0) {
 			// 7
 			g.setColor(Color.RED);
-			g.drawLine(0, h / b / 2 - w / -k, w, h / b / 2 + w / -k);
+			g.drawLine(0, h / b / 4 - w / -k, w, h / b / 4 + w / -k);
 
 		}
 		if (k < 0 && b < 0) {
 			// 8
 			g.setColor(Color.RED);
-			g.drawLine(0, w - w / 2 - h / 2, w - 56, w / 2 + h / 2);
+			g.drawLine(0, b*4  - w / -k*w, w, b*4  + w / -k*w);
 		}
 		if (k > 0 && b < 0) {
 			// 9
 			g.setColor(Color.RED);
 
-			g.drawLine(0, w - w / 2 + h / 2, w + 56, w / 2 - h / 2);
+			g.drawLine(0, w - w / 2 + h / 2, w - 56, w / 2 - h / 2);
 
 		}
 
