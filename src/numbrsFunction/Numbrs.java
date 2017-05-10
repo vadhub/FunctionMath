@@ -46,7 +46,9 @@ public class Numbrs extends JPanel {
 		h = getHeight();		
 
 		rezult.setBackground(Color.ORANGE);
+		
 		// change variables k and b
+		
 		rezult.addActionListener((e) -> {
 			k = Integer.valueOf(pryamK.getText());
 			b = Integer.valueOf(pryamB.getText());
@@ -58,14 +60,12 @@ public class Numbrs extends JPanel {
 	}
 
 	public void frame() {
-
 		//open connect db
 		try {
 			db.ConnectToDataBass();
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
-
 		qwerty.setBackground(Color.ORANGE);
 
 		//enter statement
@@ -75,7 +75,6 @@ public class Numbrs extends JPanel {
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-
 		});
 
 		panel1.add(qwerty);
