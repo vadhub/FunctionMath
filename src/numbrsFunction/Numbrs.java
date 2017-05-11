@@ -3,6 +3,7 @@ package numbrsFunction;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.sql.SQLException;
@@ -11,18 +12,27 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class Numbrs extends JPanel {
 	Functions fuc = new Functions();
 	DataBase db = new DataBase();
+	PointsTableModel ptm = new PointsTableModel();
 
 	JFrame frame = new JFrame();
+	JFrame frameT = new JFrame();
 	JPanel panel1 = new JPanel();
 	JPanel panel2 = new JPanel();
 	JButton rezult = new JButton("Output");
-	JButton qwerty = new JButton("s");
+	JButton save = new JButton("save");
+	JButton openT = new JButton("table");
+	
+	JTable table = new JTable(ptm);
+	JScrollPane js = new JScrollPane(table);
+	
 	JLabel kl = new JLabel("k:");
 	JLabel bl = new JLabel("b:");
 
@@ -66,10 +76,12 @@ public class Numbrs extends JPanel {
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
-		qwerty.setBackground(Color.ORANGE);
+		openT.setBackground(Color.ORANGE);
+		save.setBackground(Color.ORANGE);
 
+		js.setPreferredSize(new Dimension(100,200));
 		//enter statement
-		qwerty.addActionListener((e) -> {
+		save.addActionListener((e) -> {
 			try {
 				db.SQLstm("INSERT INTO points VALUES ('0','" + k + "','" + b	+ "')");
 			} catch (Exception e1) {
@@ -77,15 +89,24 @@ public class Numbrs extends JPanel {
 			}
 		});
 
-		panel1.add(qwerty);
+		openT.addActionListener((e)->{
+			frame.add(js);
+			frameT.setVisible(true);
+			frameT.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frameT.setSize(100, 200);;
+			frameT.setLocation(300, 400);
+		});
+		
+		panel1.add(openT);
+		panel1.add(save);
 		panel1.add(rezult);
 		panel1.add(kl);
 		panel1.add(pryamK);
 		panel1.add(bl);
 		panel1.add(pryamB);
-		panel1.setBackground(Color.white);
+		panel1.setBackground(Color.white);		
 
-		frame.setSize(412, 412);
+		frame.setSize(430, 430);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
