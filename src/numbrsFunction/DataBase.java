@@ -2,11 +2,15 @@ package numbrsFunction;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
+import java.sql.Statement;
 
 public class DataBase {
 	Connection con = null;
+	ResultSet rt = null;
+	Statement stm = null;
 
 	// connect to db
 	public void ConnectToDataBass() throws SQLException {
@@ -19,20 +23,18 @@ public class DataBase {
 	}
 
 	// enter statement
-	public void SQLstm(String sql) {
-
-		PreparedStatement prepar = null;
-
+	public void SQLstm(String sql) throws SQLException {
+		PreparedStatement prepar =null;
 		try {
 			prepar = con.prepareStatement(sql);
 			prepar.executeUpdate(sql);
 		} catch (SQLException e) {
-
+			if (con != null)
+				con.close();
 			e.printStackTrace();
 		} finally {
 			try {
-				if (con != null)
-					con.close();
+								
 				if (prepar != null)
 					prepar.close();
 

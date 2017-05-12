@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -21,11 +22,12 @@ public class Numbrs extends JPanel {
 	Functions fuc = new Functions();
 	DataBase db = new DataBase();
 	PointsTableModel ptm = new PointsTableModel();
-
+	
 	JFrame frame = new JFrame();
 	JFrame frameT = new JFrame();
 	JPanel panel1 = new JPanel();
 	JPanel panel2 = new JPanel();
+	JPanel panelT = new JPanel();
 	JButton rezult = new JButton("Output");
 	JButton save = new JButton("save");
 	JButton openT = new JButton("table");
@@ -73,13 +75,14 @@ public class Numbrs extends JPanel {
 		//open connect db
 		try {
 			db.ConnectToDataBass();
+			ptm.addDatas(db.con);
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 		openT.setBackground(Color.ORANGE);
 		save.setBackground(Color.ORANGE);
 
-		js.setPreferredSize(new Dimension(100,200));
+		
 		//enter statement
 		save.addActionListener((e) -> {
 			try {
@@ -89,13 +92,18 @@ public class Numbrs extends JPanel {
 			}
 		});
 
-		openT.addActionListener((e)->{
-			frame.add(js);
+		openT.addActionListener((e)->{	
 			frameT.setVisible(true);
-			frameT.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			frameT.setSize(100, 200);;
-			frameT.setLocation(300, 400);
-		});
+		});	
+			
+		js.setPreferredSize(new Dimension(300,300));
+		panelT.add(js);
+		frameT.setLayout(new GridLayout());
+		frameT.add(panelT);
+				
+		frameT.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frameT.pack();
+		frameT.setLocation(300, 400);
 		
 		panel1.add(openT);
 		panel1.add(save);
