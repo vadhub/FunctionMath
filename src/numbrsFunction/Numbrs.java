@@ -22,13 +22,14 @@ public class Numbrs extends JPanel {
 	Functions fuc = new Functions();
 	DataBase db = new DataBase();
 	PointsTableModel ptm = new PointsTableModel();
+	Render r = new Render();
 	
 	JFrame frame = new JFrame();
 	JFrame frameT = new JFrame();
 	JPanel panel1 = new JPanel();
 	JPanel panel2 = new JPanel();
 	JPanel panelT = new JPanel();
-	JButton rezult = new JButton("Output");
+	JButton rezult = new JButton("Draw");
 	JButton save = new JButton("save");
 	JButton openT = new JButton("table");
 	
@@ -94,7 +95,10 @@ public class Numbrs extends JPanel {
 
 		openT.addActionListener((e)->{	
 			frameT.setVisible(true);
+			frameT.repaint();
 		});	
+		
+		table.setDefaultRenderer(Object.class, r);
 			
 		js.setPreferredSize(new Dimension(300,300));
 		panelT.add(js);
