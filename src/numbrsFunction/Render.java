@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 public class Render extends DefaultTableCellRenderer {
 	private static final long serialVersionUID = 1L;
+//	Numbrs num = new Numbrs();
 
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value,
@@ -17,7 +18,8 @@ public class Render extends DefaultTableCellRenderer {
 		
 		if(isSelected){
 			setBackground(Color.ORANGE);
-			setForeground(Color.black);
+			setForeground(Color.black);			
+			
 		}else{
 			setBackground(Color.white);
 			setForeground(Color.black);

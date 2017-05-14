@@ -67,9 +67,8 @@ public class PointsTableModel extends AbstractTableModel {
 	public void addDatas(Connection con) {		
 		try {
 			db.stm = con.createStatement();
-			db.rt = db.stm.executeQuery("SELECT * FROM points");	
-		
-		
+			db.rt = db.stm.executeQuery("SELECT * FROM points");			
+				
 			while (db.rt.next()) {
 
 				String[] row = {						

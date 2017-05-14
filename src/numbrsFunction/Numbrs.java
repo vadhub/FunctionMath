@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,12 +29,14 @@ public class Numbrs extends JPanel {
 	
 	JFrame frame = new JFrame();
 	JFrame frameT = new JFrame();
+	JMenu menu = new JMenu("menu");
+	JMenuBar menuBar = new JMenuBar();
+	JMenuItem menuitm = new JMenuItem("Save");
+	JMenuItem menuitm2 = new JMenuItem("Table Points");
 	JPanel panel1 = new JPanel();
 	JPanel panel2 = new JPanel();
 	JPanel panelT = new JPanel();
-	JButton rezult = new JButton("Draw");
-	JButton save = new JButton("save");
-	JButton openT = new JButton("table");
+	JButton rezult = new JButton("Draw");	
 	
 	JTable table = new JTable(ptm);
 	JScrollPane js = new JScrollPane(table);
@@ -80,12 +85,9 @@ public class Numbrs extends JPanel {
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
-		openT.setBackground(Color.ORANGE);
-		save.setBackground(Color.ORANGE);
-
 		
 		//enter statement
-		save.addActionListener((e) -> {
+		menuitm.addActionListener((e) -> {
 			try {
 				db.SQLstm("INSERT INTO points VALUES ('0','" + k + "','" + b	+ "')");
 			} catch (Exception e1) {
@@ -93,7 +95,7 @@ public class Numbrs extends JPanel {
 			}
 		});
 
-		openT.addActionListener((e)->{	
+		menuitm2.addActionListener((e)->{	
 			frameT.setVisible(true);
 			frameT.repaint();
 		});	
@@ -109,8 +111,17 @@ public class Numbrs extends JPanel {
 		frameT.pack();
 		frameT.setLocation(300, 400);
 		
-		panel1.add(openT);
-		panel1.add(save);
+		menu.add(menuitm);
+		menu.add(menuitm2);
+		menuBar.add(menu);
+		
+		menuBar.setBackground(Color.ORANGE);
+		
+		menuitm.setBackground(Color.ORANGE);
+		menuitm2.setBackground(Color.ORANGE);
+		
+		panel1.add(menuBar);
+			
 		panel1.add(rezult);
 		panel1.add(kl);
 		panel1.add(pryamK);
