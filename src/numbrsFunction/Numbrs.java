@@ -26,6 +26,7 @@ public class Numbrs extends JPanel {
 	DataBase db = new DataBase();
 	PointsTableModel ptm = new PointsTableModel();
 	Render r = new Render();
+	DeleteT delet = new DeleteT();
 	
 	JFrame frame = new JFrame();
 	JFrame frameT = new JFrame();
@@ -36,7 +37,8 @@ public class Numbrs extends JPanel {
 	JPanel panel1 = new JPanel();
 	JPanel panel2 = new JPanel();
 	JPanel panelT = new JPanel();
-	JButton rezult = new JButton("Draw");	
+	JButton rezult = new JButton("Draw");
+	JButton delete = new JButton("Delete");
 	
 	JTable table = new JTable(ptm);
 	JScrollPane js = new JScrollPane(table);
@@ -104,16 +106,19 @@ public class Numbrs extends JPanel {
 			
 		js.setPreferredSize(new Dimension(300,300));
 		panelT.add(js);
+		panelT.add(delete);
 		frameT.setLayout(new GridLayout());
 		frameT.add(panelT);
 				
 		frameT.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frameT.pack();
+		frameT.pack();		
 		frameT.setLocation(300, 400);
+		
+		delet.ActioButton(delete, table);
 		
 		menu.add(menuitm);
 		menu.add(menuitm2);
-		menuBar.add(menu);
+		menuBar.add(menu);	
 		
 		menuBar.setBackground(Color.ORANGE);
 		

@@ -23,7 +23,7 @@ public class DataBase {
 	}
 
 	// enter statement
-	public void SQLstm(String sql) throws SQLException {
+	public  void SQLstm(String sql) throws SQLException {
 		PreparedStatement prepar =null;
 		try {
 			prepar = con.prepareStatement(sql);
