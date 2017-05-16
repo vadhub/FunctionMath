@@ -25,8 +25,7 @@ public class Numbrs extends JPanel {
 	Functions fuc = new Functions();
 	DataBase db = new DataBase();
 	PointsTableModel ptm = new PointsTableModel();
-	Render r = new Render();
-	DeleteT delet = new DeleteT();
+	Render r = new Render();	
 	
 	JFrame frame = new JFrame();
 	JFrame frameT = new JFrame();
@@ -82,7 +81,7 @@ public class Numbrs extends JPanel {
 	public void frame() {
 		//open connect db
 		try {
-			db.ConnectToDataBass();
+			db.ConnectToDataBass();			
 			ptm.addDatas(db.con);
 		} catch (SQLException e2) {
 			e2.printStackTrace();
@@ -92,6 +91,8 @@ public class Numbrs extends JPanel {
 		menuitm.addActionListener((e) -> {
 			try {
 				db.SQLstm("INSERT INTO points VALUES ('0','" + k + "','" + b	+ "')");
+				ptm.addDatas(db.con);
+				frameT.repaint();
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -101,6 +102,23 @@ public class Numbrs extends JPanel {
 			frameT.setVisible(true);
 			frameT.repaint();
 		});	
+		
+		delete.addActionListener((e)->{			
+			try {
+				int indexRow = table.getSelectedRow();
+				if(indexRow !=0){				
+				db.SQLstm("DELETE FROM my_bd.points WHERE points.id ="+indexRow);			
+				ptm.addDatas(db.con);	
+				frameT.repaint();
+				}				
+			} catch (Exception e1) {				
+				e1.printStackTrace();
+			}
+			
+		});
+		
+		
+		table.repaint();
 		
 		table.setDefaultRenderer(Object.class, r);
 			
@@ -112,9 +130,7 @@ public class Numbrs extends JPanel {
 				
 		frameT.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameT.pack();		
-		frameT.setLocation(300, 400);
-		
-		delet.ActioButton(delete, table);
+		frameT.setLocation(300, 400);	
 		
 		menu.add(menuitm);
 		menu.add(menuitm2);

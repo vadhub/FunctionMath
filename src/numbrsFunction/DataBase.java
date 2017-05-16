@@ -23,12 +23,13 @@ public class DataBase {
 	}
 
 	// enter statement
-	public  void SQLstm(String sql) throws SQLException {
+	public void SQLstm(String sql) throws SQLException {
 		PreparedStatement prepar =null;
 		try {
 			prepar = con.prepareStatement(sql);
-			prepar.executeUpdate(sql);
+			prepar.executeUpdate();
 		} catch (SQLException e) {
+			
 			if (con != null)
 				con.close();
 			e.printStackTrace();
