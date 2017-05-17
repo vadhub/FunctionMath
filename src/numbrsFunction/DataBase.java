@@ -11,6 +11,7 @@ public class DataBase {
 	Connection con = null;
 	ResultSet rt = null;
 	Statement stm = null;
+	PreparedStatement prepar =null;
 
 	// connect to db
 	public void ConnectToDataBass() throws SQLException {
@@ -33,15 +34,6 @@ public class DataBase {
 			if (con != null)
 				con.close();
 			e.printStackTrace();
-		} finally {
-			try {
-								
-				if (prepar != null)
-					prepar.close();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 }

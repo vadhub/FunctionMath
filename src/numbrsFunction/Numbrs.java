@@ -25,8 +25,8 @@ public class Numbrs extends JPanel {
 	Functions fuc = new Functions();
 	DataBase db = new DataBase();
 	PointsTableModel ptm = new PointsTableModel();
-	Render r = new Render();	
-	
+	Render r = new Render();
+
 	JFrame frame = new JFrame();
 	JFrame frameT = new JFrame();
 	JMenu menu = new JMenu("menu");
@@ -38,18 +38,21 @@ public class Numbrs extends JPanel {
 	JPanel panelT = new JPanel();
 	JButton rezult = new JButton("Draw");
 	JButton delete = new JButton("Delete");
-	
+
 	JTable table = new JTable(ptm);
 	JScrollPane js = new JScrollPane(table);
 	
+	JLabel idP = new JLabel("id:");
 	JLabel kl = new JLabel("k:");
 	JLabel bl = new JLabel("b:");
+
+	JTextField id = new JTextField(4);
 
 	JTextField pryamK = new JTextField(10);
 	JTextField pryamB = new JTextField(10);
 	int w;
 	int h;
-
+	int id1;
 	int k = 0;
 	int b = 0;
 
@@ -62,12 +65,12 @@ public class Numbrs extends JPanel {
 		g4.setStroke(new BasicStroke(2));
 
 		w = getWidth();
-		h = getHeight();		
+		h = getHeight();
 
 		rezult.setBackground(Color.ORANGE);
-		
+
 		// change variables k and b
-		
+
 		rezult.addActionListener((e) -> {
 			k = Integer.valueOf(pryamK.getText());
 			b = Integer.valueOf(pryamB.getText());
@@ -79,18 +82,20 @@ public class Numbrs extends JPanel {
 	}
 
 	public void frame() {
-		//open connect db
+		// open connect db
 		try {
-			db.ConnectToDataBass();			
+			db.ConnectToDataBass();
+			db.stm = db.con.createStatement();
 			ptm.addDatas(db.con);
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
-		
-		//enter statement
+
+		// enter statement
 		menuitm.addActionListener((e) -> {
 			try {
-				db.SQLstm("INSERT INTO points VALUES ('0','" + k + "','" + b	+ "')");
+				id1 = Integer.parseInt(id.getText());
+				db.SQLstm("INSERT INTO points VALUES ('"+id1 +"','" + k + "','" + b+"')");
 				ptm.addDatas(db.con);
 				frameT.repaint();
 			} catch (Exception e1) {
@@ -98,57 +103,68 @@ public class Numbrs extends JPanel {
 			}
 		});
 
-		menuitm2.addActionListener((e)->{	
+		menuitm2.addActionListener((e) -> {
 			frameT.setVisible(true);
 			frameT.repaint();
-		});	
-		
-		delete.addActionListener((e)->{			
+		});
+
+		//delete form bd element
+		delete.addActionListener((e) -> {
 			try {
 				int indexRow = table.getSelectedRow();
-				if(indexRow !=0){				
-				db.SQLstm("DELETE FROM my_bd.points WHERE points.id ="+indexRow);			
-				ptm.addDatas(db.con);	
-				frameT.repaint();
-				}				
-			} catch (Exception e1) {				
+				if (indexRow != -1) {
+					int modelIndex = table.convertRowIndexToModel(indexRow);
+					db.prepar = db.con.prepareStatement("DELETE FROM my_bd.points WHERE points.id = "	+ String.valueOf(modelIndex));
+					
+					db.prepar.executeUpdate("DELETE FROM my_bd.points WHERE points.id = "+ String.valueOf(modelIndex));
+					System.out.println(String.valueOf(indexRow));
+				}
+			} catch (Exception e1) {
 				e1.printStackTrace();
+			} finally {
+				try {
+					if (db.prepar != null)
+						db.prepar.close();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
-			
+
 		});
-		
-		
+
 		table.repaint();
-		
+
 		table.setDefaultRenderer(Object.class, r);
-			
-		js.setPreferredSize(new Dimension(300,300));
+
+		js.setPreferredSize(new Dimension(300, 300));
 		panelT.add(js);
 		panelT.add(delete);
 		frameT.setLayout(new GridLayout());
 		frameT.add(panelT);
-				
+
 		frameT.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frameT.pack();		
-		frameT.setLocation(300, 400);	
-		
+		frameT.pack();
+		frameT.setLocation(300, 400);
+
 		menu.add(menuitm);
 		menu.add(menuitm2);
-		menuBar.add(menu);	
-		
+		menuBar.add(menu);
+
 		menuBar.setBackground(Color.ORANGE);
-		
+
 		menuitm.setBackground(Color.ORANGE);
 		menuitm2.setBackground(Color.ORANGE);
-		
+
 		panel1.add(menuBar);
-			
+
 		panel1.add(rezult);
 		panel1.add(kl);
 		panel1.add(pryamK);
 		panel1.add(bl);
 		panel1.add(pryamB);
-		panel1.setBackground(Color.white);		
+		panel1.add(idP);
+		panel1.add(id);
+		panel1.setBackground(Color.white);
 
 		frame.setSize(430, 430);
 		frame.setVisible(true);
