@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -26,30 +28,41 @@ public class Numbrs extends JPanel {
 	DataBase db = new DataBase();
 	PointsTableModel ptm = new PointsTableModel();
 	Render r = new Render();
+	
+	Object[] column = {"id","k","b"};
+
 
 	JFrame frame = new JFrame();
 	JFrame frameT = new JFrame();
+	
 	JMenu menu = new JMenu("menu");
+	
 	JMenuBar menuBar = new JMenuBar();
+	
 	JMenuItem menuitm = new JMenuItem("Save");
 	JMenuItem menuitm2 = new JMenuItem("Table Points");
+	
 	JPanel panel1 = new JPanel();
 	JPanel panel2 = new JPanel();
 	JPanel panelT = new JPanel();
+	
 	JButton rezult = new JButton("Draw");
+	
 	JButton delete = new JButton("Delete");
+	JButton update = new JButton("Update");
 
 	JTable table = new JTable(ptm);
 	JScrollPane js = new JScrollPane(table);
-	
+
 	JLabel idP = new JLabel("id:");
 	JLabel kl = new JLabel("k:");
 	JLabel bl = new JLabel("b:");
 
-	JTextField id = new JTextField(4);
+	JTextField id3 = new JTextField(4);
 
 	JTextField pryamK = new JTextField(10);
 	JTextField pryamB = new JTextField(10);
+
 	int w;
 	int h;
 	int id1;
@@ -94,29 +107,34 @@ public class Numbrs extends JPanel {
 		// enter statement
 		menuitm.addActionListener((e) -> {
 			try {
-				id1 = Integer.parseInt(id.getText());
-				db.SQLstm("INSERT INTO points VALUES ('"+id1 +"','" + k + "','" + b+"')");
+				id1 = Integer.parseInt(id3.getText());
+				db.SQLstm("INSERT INTO points VALUES ('" + id1 + "','" + k
+						+ "','" + b + "')");
 				ptm.addDatas(db.con);
 				frameT.repaint();
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-		});
-
+		});	
+		
 		menuitm2.addActionListener((e) -> {
 			frameT.setVisible(true);
 			frameT.repaint();
 		});
 
-		//delete form bd element
+		// delete form bd element
 		delete.addActionListener((e) -> {
 			try {
 				int indexRow = table.getSelectedRow();
 				if (indexRow != -1) {
 					int modelIndex = table.convertRowIndexToModel(indexRow);
-					db.prepar = db.con.prepareStatement("DELETE FROM my_bd.points WHERE points.id = "	+ String.valueOf(modelIndex));
-					
-					db.prepar.executeUpdate("DELETE FROM my_bd.points WHERE points.id = "+ String.valueOf(modelIndex));
+					db.prepar = db.con
+							.prepareStatement("DELETE FROM my_bd.points WHERE points.id = "
+									+ String.valueOf(modelIndex));
+
+					db.prepar
+							.executeUpdate("DELETE FROM my_bd.points WHERE points.id = "
+									+ String.valueOf(modelIndex));
 					System.out.println(String.valueOf(indexRow));
 				}
 			} catch (Exception e1) {
@@ -130,6 +148,20 @@ public class Numbrs extends JPanel {
 				}
 			}
 
+		});			
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent ar) {
+
+				int indexRow = table.getSelectedRow();
+
+				if (indexRow != -1) {
+					id3.setText(ptm.getValueAt(indexRow, 0).toString());
+					pryamK.setText(ptm.getValueAt(indexRow, 1).toString());
+					pryamB.setText(ptm.getValueAt(indexRow, 2).toString());
+				}
+
+			}
 		});
 
 		table.repaint();
@@ -139,11 +171,12 @@ public class Numbrs extends JPanel {
 		js.setPreferredSize(new Dimension(300, 300));
 		panelT.add(js);
 		panelT.add(delete);
+		panelT.add(update);
 		frameT.setLayout(new GridLayout());
 		frameT.add(panelT);
 
 		frameT.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frameT.pack();
+		frameT.setSize(350, 400);
 		frameT.setLocation(300, 400);
 
 		menu.add(menuitm);
@@ -163,7 +196,7 @@ public class Numbrs extends JPanel {
 		panel1.add(bl);
 		panel1.add(pryamB);
 		panel1.add(idP);
-		panel1.add(id);
+		panel1.add(id3);
 		panel1.setBackground(Color.white);
 
 		frame.setSize(430, 430);

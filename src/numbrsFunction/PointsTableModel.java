@@ -5,10 +5,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 public class PointsTableModel extends AbstractTableModel {
 
 	DataBase db = new DataBase();
+	DefaultTableModel model = new DefaultTableModel();
 
 	private static final long serialVersionUID = 1L;
 
@@ -32,8 +34,8 @@ public class PointsTableModel extends AbstractTableModel {
 
 	// count column
 	@Override
-	public int getColumnCount() {
-		return column;
+	public int getColumnCount() {			
+		return column;		
 	}
 
 	// get data
@@ -42,20 +44,7 @@ public class PointsTableModel extends AbstractTableModel {
 		String[] rows = dataList.get(rowindex);
 
 		return rows[columnIndex];
-	}
-
-	@Override
-	public String getColumnName(int columnIndex) {
-		switch (columnIndex) {
-		case 0:
-			return "id";
-		case 1:
-			return "k";
-		case 2:
-			return "b";
-		}
-		return "5t";
-	}
+	}	
 	
 	public void addData(String []row){		
 		String rows[] = new String[getColumnCount()];
