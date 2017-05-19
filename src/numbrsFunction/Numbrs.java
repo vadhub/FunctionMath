@@ -90,6 +90,7 @@ public class Numbrs extends JPanel {
 
 			frame.repaint();
 		});
+		
 		g4.setColor(Color.RED);
 		fuc.line(k, b, g4, w, h);
 	}
@@ -148,7 +149,8 @@ public class Numbrs extends JPanel {
 				}
 			}
 
-		});			
+		});
+		//dates from table copy in jtextfields 
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent ar) {
@@ -163,8 +165,10 @@ public class Numbrs extends JPanel {
 
 			}
 		});
-
-		table.repaint();
+		
+		update.addActionListener((e)->{
+			ptm.fireTableDataChanged();
+		});
 
 		table.setDefaultRenderer(Object.class, r);
 
@@ -199,7 +203,7 @@ public class Numbrs extends JPanel {
 		panel1.add(id3);
 		panel1.setBackground(Color.white);
 
-		frame.setSize(430, 430);
+		frame.setSize(490, 490);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
