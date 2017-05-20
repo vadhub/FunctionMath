@@ -48,14 +48,13 @@ public class Functions {
 			// 4
 
 			g.setColor(Color.RED);
-			g.drawLine(0, h / 2 - w / b /2, w, h / 2 - w / b /2);
+			g.drawLine(0, (h / 2) + b*5 / -2, w, (h / 2) -  b*5 / 2);	
 
 		}
 		if (k == 0 && b > 0) {
 			// 5
-
 			g.setColor(Color.RED);
-			g.drawLine(0, h / 2 - w / b / 2, w, h / 2 + w / b / -2);	
+			g.drawLine(0, h / 2 -  b *5/2, w, h / 2 +  b *5/-2);	
 			System.out.println(h / 2 + w / b / -2);
 
 		}
@@ -79,8 +78,7 @@ public class Functions {
 		if (k > 0 && b < 0) {
 			// 9
 			g.setColor(Color.RED);
-
-			g.drawLine(0, w - w / 2 + h / 2, w - 56, w / 2 - h / 2);
+			g.drawLine(0, (w/2 - b*4) + h / k, w+100, (w/2 - b*4) - h / k);
 
 		}
 
