@@ -41,6 +41,7 @@ public class Numbrs extends JPanel {
 	
 	JMenuItem menuitm = new JMenuItem("Save");
 	JMenuItem menuitm2 = new JMenuItem("Table Points");
+	JMenuItem update = new JMenuItem("Update");
 	
 	JPanel panel1 = new JPanel();
 	JPanel panel2 = new JPanel();
@@ -48,8 +49,7 @@ public class Numbrs extends JPanel {
 	
 	JButton rezult = new JButton("Draw");
 	
-	JButton delete = new JButton("Delete");
-	JButton update = new JButton("Update");
+	JButton delete = new JButton("Delete");	
 
 	JTable table = new JTable(ptm);
 	JScrollPane js = new JScrollPane(table);
@@ -129,26 +129,14 @@ public class Numbrs extends JPanel {
 				int indexRow = table.getSelectedRow();
 				if (indexRow != -1) {
 					int modelIndex = table.convertRowIndexToModel(indexRow);
-					db.prepar = db.con
-							.prepareStatement("DELETE FROM my_bd.points WHERE points.id = "
-									+ String.valueOf(modelIndex));
+					db.prepar = db.con.prepareStatement("DELETE FROM my_bd.points WHERE points.id = "	+ String.valueOf(modelIndex));
 
-					db.prepar
-							.executeUpdate("DELETE FROM my_bd.points WHERE points.id = "
-									+ String.valueOf(modelIndex));
+					db.prepar.executeUpdate("DELETE FROM my_bd.points WHERE points.id = "+ String.valueOf(modelIndex));
 					System.out.println(String.valueOf(indexRow));
 				}
 			} catch (Exception e1) {
 				e1.printStackTrace();
-			} finally {
-				try {
-					if (db.prepar != null)
-						db.prepar.close();
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
 			}
-
 		});
 		//dates from table copy in jtextfields 
 		table.addMouseListener(new MouseAdapter() {
@@ -165,34 +153,47 @@ public class Numbrs extends JPanel {
 
 			}
 		});
-		
+	//Update table
 		update.addActionListener((e)->{
 			ptm.fireTableDataChanged();
+			try {
+				db.stm = db.con.createStatement();
+				db.stm.executeUpdate("UPDATE `my_bd`.`points` SET `k` = "+7 +" WHERE `points`.`id` = "+4+" AND `points`.`b` = "+99+";");
+				} catch (Exception e1) {				
+				e1.printStackTrace();
+			}
+			//UPDATE `my_bd`.`points` SET `k` = '100' WHERE `points`.`id` =4 AND `points`.`k` =0 AND `points`.`b` = '-9' 
 		});
 
 		table.setDefaultRenderer(Object.class, r);
 
 		js.setPreferredSize(new Dimension(300, 300));
 		panelT.add(js);
-		panelT.add(delete);
-		panelT.add(update);
+		panelT.add(delete);		
 		frameT.setLayout(new GridLayout());
 		frameT.add(panelT);
 
 		frameT.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameT.setSize(350, 400);
 		frameT.setLocation(300, 400);
+		
+		//menu in frame
 
 		menu.add(menuitm);
+		menu.add(update);
 		menu.add(menuitm2);
+		
 		menuBar.add(menu);
 
 		menuBar.setBackground(Color.ORANGE);
 
 		menuitm.setBackground(Color.ORANGE);
 		menuitm2.setBackground(Color.ORANGE);
+		update.setBackground(Color.ORANGE);
 
 		panel1.add(menuBar);
+		
+		//pane add components
 
 		panel1.add(rezult);
 		panel1.add(kl);
