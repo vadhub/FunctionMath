@@ -11,17 +11,21 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+
+//main realization
 @SuppressWarnings("serial")
 public class Numbrs extends JPanel {
 	Functions fuc = new Functions();
@@ -29,9 +33,6 @@ public class Numbrs extends JPanel {
 	PointsTableModel ptm = new PointsTableModel();
 	Render r = new Render();
 	
-	Object[] column = {"id","k","b"};
-
-
 	JFrame frame = new JFrame();
 	JFrame frameT = new JFrame();
 	
@@ -69,6 +70,7 @@ public class Numbrs extends JPanel {
 	int k = 0;
 	int b = 0;
 
+	//draw lines on frame
 	protected void paintComponent(Graphics g2) {
 		super.paintComponent(g2);
 		Graphics2D g4;
@@ -98,8 +100,7 @@ public class Numbrs extends JPanel {
 	public void frame() {
 		// open connect db
 		try {
-			db.ConnectToDataBass();
-			db.stm = db.con.createStatement();
+			db.ConnectToDataBass();			
 			ptm.addDatas(db.con);
 		} catch (SQLException e2) {
 			e2.printStackTrace();
@@ -109,12 +110,12 @@ public class Numbrs extends JPanel {
 		menuitm.addActionListener((e) -> {
 			try {
 				id1 = Integer.parseInt(id3.getText());
-				db.SQLstm("INSERT INTO points VALUES ('" + id1 + "','" + k
-						+ "','" + b + "')");
-				ptm.addDatas(db.con);
-				frameT.repaint();
+				db.SQLstm("INSERT INTO points VALUES ('" + id1 + "','" + k + "','" + b + "')");
+				ptm.addDatas(db.con);				
+				JOptionPane.showMessageDialog(null, "coordinate save");
 			} catch (Exception e1) {
 				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, e1.getStackTrace());
 			}
 		});	
 		
@@ -128,17 +129,17 @@ public class Numbrs extends JPanel {
 			try {
 				int indexRow = table.getSelectedRow();
 				if (indexRow != -1) {
-					int modelIndex = table.convertRowIndexToModel(indexRow);
-					db.prepar = db.con.prepareStatement("DELETE FROM my_bd.points WHERE points.id = "	+ String.valueOf(modelIndex));
-
-					db.prepar.executeUpdate("DELETE FROM my_bd.points WHERE points.id = "+ String.valueOf(modelIndex));
-					System.out.println(String.valueOf(indexRow));
+					int modelIndex = table.convertRowIndexToModel(indexRow);					
+					db.SQLstm("DELETE FROM my_bd.points WHERE points.id = "+ String.valueOf(modelIndex));
+					
+					JOptionPane.showMessageDialog(null, "coordinate deleted");
 				}
 			} catch (Exception e1) {
 				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, e1.getStackTrace());
 			}
 		});
-		//dates from table copy in jtextfields 
+		//dates from table output in jtextfields 
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent ar) {
@@ -157,12 +158,14 @@ public class Numbrs extends JPanel {
 		update.addActionListener((e)->{
 			ptm.fireTableDataChanged();
 			try {
-				db.stm = db.con.createStatement();
-				db.stm.executeUpdate("UPDATE `my_bd`.`points` SET `k` = "+7 +" WHERE `points`.`id` = "+4+" AND `points`.`b` = "+99+";");
+				db.SQLstm("UPDATE my_bd.points SET k = '"+pryamK.getText() +"' WHERE points.id = "+id3.getText()+" AND points.b = '"+pryamB.getText()+"'");
+				JOptionPane.showMessageDialog(null, "coordinate update");
 				} catch (Exception e1) {				
 				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, e1.getStackTrace());
 			}
 			//UPDATE `my_bd`.`points` SET `k` = '100' WHERE `points`.`id` =4 AND `points`.`k` =0 AND `points`.`b` = '-9' 
+			//UPDATE `my_bd`.`points` SET `id` = '4' WHERE `points`.`id` = '6' AND `points`.`k` =10 AND `points`.`b` = '-10'
 		});
 
 		table.setDefaultRenderer(Object.class, r);
@@ -203,6 +206,8 @@ public class Numbrs extends JPanel {
 		panel1.add(idP);
 		panel1.add(id3);
 		panel1.setBackground(Color.white);
+		
+		//main frame
 
 		frame.setSize(490, 490);
 		frame.setVisible(true);

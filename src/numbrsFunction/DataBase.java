@@ -24,16 +24,15 @@ public class DataBase {
 	}
 
 	// enter statement
-	public void SQLstm(String sql) throws SQLException {
-		PreparedStatement prepar =null;
+	public void SQLstm(String sql) throws SQLException {		
 		try {
-			prepar = con.prepareStatement(sql);
-			prepar.executeUpdate();
-		} catch (SQLException e) {
-			
-			if (con != null)
-				con.close();
+			stm = con.createStatement();
+			stm.executeUpdate(sql);
+		} catch (SQLException e) {		
 			e.printStackTrace();
+		}finally{
+			if (con != null)con.close();			
+			if(stm != null)stm.close();
 		}
 	}
 }

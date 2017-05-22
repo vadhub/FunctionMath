@@ -66,11 +66,7 @@ public class PointsTableModel extends AbstractTableModel {
 						db.rt.getString("b")						
 				};				
 				addData(row);
-			}			
-			if (db.rt != null)
-				db.rt.close();
-			if (db.stm != null)
-				db.stm.close();				
+			}				
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
