@@ -33,6 +33,10 @@ public class Numbrs extends JPanel {
 	PointsTableModel ptm = new PointsTableModel();
 	Render r = new Render();
 	
+	//user 2
+	System.out.println("user2");
+	////////////
+	
 	JFrame frame = new JFrame();
 	JFrame frameT = new JFrame();
 	
@@ -216,5 +220,6 @@ public class Numbrs extends JPanel {
 		frame.getContentPane().add(this);
 		frame.add(panel1, "North");
 		frame.add(panel2, "South");
+		
 	}
 }
