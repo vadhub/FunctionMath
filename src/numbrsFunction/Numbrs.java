@@ -158,14 +158,12 @@ public class Numbrs extends JPanel {
 		update.addActionListener((e)->{
 			ptm.fireTableDataChanged();
 			try {
-				db.SQLstm("UPDATE my_bd.points SET k = '"+pryamK.getText() +"' WHERE points.id = "+id3.getText()+" AND points.b = '"+pryamB.getText()+"'");
+				db.SQLstm("UPDATE points SET k = '"+pryamK.getText()+"',b = '"+pryamB.getText() +"' WHERE points.id = "+id3.getText());
 				JOptionPane.showMessageDialog(null, "coordinate update");
-				} catch (Exception e1) {				
-				e1.printStackTrace();
-				JOptionPane.showMessageDialog(null, e1.getStackTrace());
-			}
-			//UPDATE `my_bd`.`points` SET `k` = '100' WHERE `points`.`id` =4 AND `points`.`k` =0 AND `points`.`b` = '-9' 
-			//UPDATE `my_bd`.`points` SET `id` = '4' WHERE `points`.`id` = '6' AND `points`.`k` =10 AND `points`.`b` = '-10'
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, e1.getStackTrace());
+			}			
 		});
 
 		table.setDefaultRenderer(Object.class, r);
