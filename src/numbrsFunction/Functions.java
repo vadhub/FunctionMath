@@ -75,7 +75,7 @@ public class Functions {
 		if (k < 0 && b > 0) {
 			
 			g.setColor(Color.RED);
-			g.drawLine(0, h / b / 4 - w / -k, w, h / b / 4 + w / -k);
+			g.drawLine(0, h + b / 1 + w/k, w*2, h + b / 1 - w/ k);
 
 		}
 		

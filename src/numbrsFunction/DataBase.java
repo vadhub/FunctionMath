@@ -17,8 +17,7 @@ public class DataBase {
 	public void ConnectToDataBass() {
 
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost/my_bd",
-					"my", "1234");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/my_bd","my", "1234");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
