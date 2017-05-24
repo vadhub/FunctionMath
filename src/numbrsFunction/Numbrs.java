@@ -33,10 +33,6 @@ public class Numbrs extends JPanel {
 	PointsTableModel ptm = new PointsTableModel();
 	Render r = new Render();
 	
-	//user 2
-	System.out.println("user2");
-	////////////
-	
 	JFrame frame = new JFrame();
 	JFrame frameT = new JFrame();
 	
@@ -101,14 +97,9 @@ public class Numbrs extends JPanel {
 		fuc.line(k, b, g4, w, h);
 	}
 
-	public void frame() {
-		// open connect db
-		try {
-			db.ConnectToDataBass();			
-			ptm.addDatas(db.con);
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-		}
+	public void frame() throws SQLException {		
+		db.ConnectToDataBass();			
+		ptm.addDatas(db.con);
 
 		// enter statement
 		menuitm.addActionListener((e) -> {
@@ -128,7 +119,7 @@ public class Numbrs extends JPanel {
 			frameT.repaint();
 		});
 
-		// delete form bd element
+	// delete form bd element
 		delete.addActionListener((e) -> {
 			try {
 				int indexRow = table.getSelectedRow();
@@ -143,7 +134,7 @@ public class Numbrs extends JPanel {
 				JOptionPane.showMessageDialog(null, e1.getStackTrace());
 			}
 		});
-		//dates from table output in jtextfields 
+	//dates from table output in jtextfields 
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent ar) {

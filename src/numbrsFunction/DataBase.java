@@ -11,33 +11,36 @@ public class DataBase {
 	Connection con = null;
 	ResultSet rt = null;
 	Statement stm = null;
-	PreparedStatement prepar =null;
+	PreparedStatement prepar = null;
 
 	// connect to db
-	public void ConnectToDataBass() throws SQLException {
+	public void ConnectToDataBass() {
 
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost/my_bd","my", "1234");
-			} catch (SQLException e) {
+			con = DriverManager.getConnection("jdbc:mysql://localhost/my_bd",
+					"my", "1234");
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	// enter statement
-	public void SQLstm(String sql) {		
+	public void SQLstm(String sql) {
 		try {
 			stm = con.createStatement();
 			stm.executeUpdate(sql);
-		} catch (SQLException e) {		
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally{			
-				try {
-					if (con != null)con.close();
-					if(stm != null)stm.close();
-				} catch (SQLException e) {					
-					e.printStackTrace();
-				}			
-			
+		} finally {
+			try {
+				if (con != null)
+					con.close();
+				if (stm != null)
+					stm.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
 		}
 	}
 }
