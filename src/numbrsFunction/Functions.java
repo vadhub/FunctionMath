@@ -53,14 +53,14 @@ public class Functions {
 		if (k == 0 && b < 0) {
 			
 			g.setColor(Color.RED);
-			g.drawLine(0, (h / 2) + b*5 / -2, w, (h / 2) -  b*5 / 2);	
+			g.drawLine(0, h / 2 +  (b*-2), w, h / 2 +  (b*-2));	
 
 		}
 	
 		if (k == 0 && b > 0) {
 			
 			g.setColor(Color.RED);
-			g.drawLine(0, h / 2 -  b*h/w*3, w, h / 2 +  b*-h/w*3);
+			g.drawLine(0, h / 2 -  (b*2), w, h / 2 -  (b*2));
 		}
 		
 		if (k > 0 && b > 0) {
