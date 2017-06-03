@@ -13,7 +13,7 @@ public class DataBase {
 	Statement stm = null;
 	PreparedStatement prepar = null;
 
-	// connect to db
+	// connect to DataBase
 	public void ConnectToDataBass() {
 
 		try {

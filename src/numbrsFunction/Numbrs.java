@@ -81,14 +81,19 @@ public class Numbrs extends JPanel {
 
 		w = getWidth();
 		h = getHeight();
-
+		
 		rezult.setBackground(Color.ORANGE);
 
-		// change variables k and b
+		// draw graphics 
 
 		rezult.addActionListener((e) -> {
+			
+
+			if(pryamK.getText().equals("")&&pryamB.getText().equals("")||pryamB.getText().equals("")||pryamK.getText().equals("")){
+				JOptionPane.showMessageDialog(null,"enter numbers");
+			}
 			k = Integer.valueOf(pryamK.getText());
-			b = Integer.valueOf(pryamB.getText());
+			b = Integer.valueOf(pryamB.getText());			
 
 			frame.repaint();
 		});
@@ -97,7 +102,7 @@ public class Numbrs extends JPanel {
 		fuc.line(k, b, g4, w, h);
 	}
 
-	public void frame() throws SQLException {		
+	public void frame() throws SQLException {			
 		db.ConnectToDataBass();			
 		ptm.addDatas(db.con);
 
@@ -119,7 +124,7 @@ public class Numbrs extends JPanel {
 			frameT.repaint();
 		});
 
-	// delete form bd element
+	// delete form DataBase element
 		delete.addActionListener((e) -> {
 			try {
 				int indexRow = table.getSelectedRow();
