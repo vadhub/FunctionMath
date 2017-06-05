@@ -61,7 +61,7 @@ public class Functions {
 		
 		if (k > 0 && b > 0) {			
 			g.setColor(Color.RED);
-			g.drawLine(0, h*(1 +b)/k, w/2, h*(1 -b)/k);
+			g.drawLine(0, h+k*(w-b*2), w-200, h-k*(w+b*2));
 		}
 		
 		if (k < 0 && b > 0) {
@@ -74,7 +74,7 @@ public class Functions {
 		if (k < 0 && b < 0) {
 			
 			g.setColor(Color.RED);
-			g.drawLine(0, h - b /1 +w /k, w, h + b / 1 - w /k);			
+			g.drawLine(0, (- b*10+w/2) + h/ k, w,(- b*10+ w/3 ) - h / k);	
 		}
 		
 		if (k > 0 && b < 0) {
